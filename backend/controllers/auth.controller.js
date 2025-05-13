@@ -10,6 +10,13 @@ import {
 } from "../mail/emails.js";
 import { User } from "../models/user.model.js";
 
+const getClientUrl = (req) => {
+	if (process.env.CLIENT_URL) return process.env.CLIENT_URL;
+
+	const protocol = req.get("x-forwarded-proto") || req.protocol;
+	return `${protocol}://${req.get("host")}`;
+};
+
 export const signup = async (req, res) => {
 	const { email, password, name } = req.body;
 
@@ -144,7 +151,7 @@ export const forgotPassword = async (req, res) => {
 		await user.save();
 
 		// send email
-		await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`);
+		await sendPasswordResetEmail(user.email, `${getClientUrl(req)}/reset-password/${resetToken}`);
 
 		res.status(200).json({ success: true, message: "Password reset link sent to your email" });
 	} catch (error) {
