@@ -1,16 +1,15 @@
 {
-  "name": "frontend",
+  "name": "secure-auth-mern-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-Process powershell -WindowStyle Hidden -ArgumentList '-NoProfile','-Command','$url=\\\"http://localhost:5173/login\\\"; Start-Sleep -Seconds 2; if (Get-Command chrome.exe -ErrorAction SilentlyContinue) { Start-Process chrome.exe $url } elseif (Get-Command msedge.exe -ErrorAction SilentlyContinue) { Start-Process msedge.exe $url } else { Start-Process $url }'; vite\"",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "auth-tutorial": "file:..",
     "axios": "^1.7.3",
     "framer-motion": "^11.3.21",
     "lucide-react": "^0.424.0",
@@ -18,6 +17,7 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.26.0",
+    "secure-auth-mern": "file:..",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

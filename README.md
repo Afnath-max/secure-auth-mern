@@ -1,59 +1,102 @@
-<h1 align="center">Advanced Auth Tutorial 🔒 </h1>
+# Secure Auth MERN
 
-![Demo App](/frontend/public/screenshot-for-readme.png)
+A full-stack MERN authentication app with account signup, login, protected routes, email verification, password reset, JWT cookies, MongoDB persistence, and SMTP email delivery.
 
-[Video Tutorial on Youtube](https://youtu.be/pmvEgZC55Cg)
+![Secure Auth MERN screenshot](frontend/public/screenshot-for-readme.png)
 
-About This Course:
+## Features
 
--   🔧 Backend Setup
--   🗄️ Database Setup
--   🔐 Signup Endpoint
--   📧 Sending Verify Account Email
--   🔍 Verify Email Endpoint
--   📄 Building a Welcome Email Template
--   🚪 Logout Endpoint
--   🔑 Login Endpoint
--   🔄 Forgot Password Endpoint
--   🔁 Reset Password Endpoint
--   ✔️ Check Auth Endpoint
--   🌐 Frontend Setup
--   📋 Signup Page UI
--   🔓 Login Page UI
--   ✅ Email Verification Page UI
--   📤 Implementing Signup
--   📧 Implementing Email Verification
--   🔒 Protecting Our Routes
--   🔑 Implementing Login
--   🏠 Dashboard Page
--   🔄 Implementing Forgot Password
--   🚀 Super Detailed Deployment
--   ✅ This is a lot of work. Support my work by subscribing to the [Channel](https://www.youtube.com/@asaprogrammer_)
+- React + Vite frontend with protected auth routes
+- Express API with JWT authentication stored in HTTP-only cookies
+- MongoDB user storage through Mongoose
+- Email verification flow
+- Forgot password and reset password flow
+- SMTP mail delivery through Nodemailer
+- Password visibility toggles on password fields
+- Windows-friendly development commands
 
-### Setup .env file
+## Tech Stack
 
-```bash
-MONGO_URI=your_mongo_uri
+- React 18
+- Vite
+- Zustand
+- Tailwind CSS
+- Express
+- MongoDB + Mongoose
+- JWT
+- Nodemailer SMTP
+
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+MONGO_URI=your_mongodb_connection_string
 PORT=5000
-JWT_SECRET=your_secret_key
+JWT_SECRET=your_jwt_secret
 NODE_ENV=development
 
-MAILTRAP_TOKEN=your_mailtrap_token
-MAILTRAP_ENDPOINT=https://send.api.mailtrap.io/
+# Auth Mail
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your_email@gmail.com
+MAIL_PASSWORD=your_google_app_password
+MAIL_SMTP_AUTH=true
+MAIL_SMTP_STARTTLS=true
+AUTH_MAIL_FROM_ADDRESS=your_email@gmail.com
 
-CLIENT_URL= http://localhost:5173
+CLIENT_URL=http://localhost:5173
 ```
 
-### Run this app locally
+For Gmail SMTP, use a Google App Password. Do not use your normal Gmail password.
 
-```shell
+## Install
+
+```powershell
+npm install
+npm install --prefix frontend
+```
+
+## Run Locally
+
+Start the backend:
+
+```powershell
+npm run dev
+```
+
+Start the frontend in another terminal:
+
+```powershell
+cd frontend
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:5173/login
+```
+
+## Build
+
+```powershell
 npm run build
 ```
 
-### Start the app
+## API Routes
 
-```shell
-npm run start
-```
+- `POST /api/auth/signup`
+- `POST /api/auth/verify-email`
+- `POST /api/auth/login`
+- `POST /api/auth/logout`
+- `GET /api/auth/check-auth`
+- `POST /api/auth/forgot-password`
+- `POST /api/auth/reset-password/:token`
 
-### I'll see you in the next one! 🚀
+## Security Notes
+
+- Keep `.env` private. It is ignored by Git.
+- Rotate credentials if they were shared publicly.
+- Use strong `JWT_SECRET` values in production.
+- Use HTTPS in production so secure cookies can be enabled safely.

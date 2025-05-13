@@ -7,7 +7,7 @@ import {
 	sendResetSuccessEmail,
 	sendVerificationEmail,
 	sendWelcomeEmail,
-} from "../mailtrap/emails.js";
+} from "../mail/emails.js";
 import { User } from "../models/user.model.js";
 
 export const signup = async (req, res) => {
@@ -28,6 +28,8 @@ export const signup = async (req, res) => {
 		const hashedPassword = await bcryptjs.hash(password, 10);
 		const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
 
+		await sendVerificationEmail(email, verificationToken);
+
 		const user = new User({
 			email,
 			password: hashedPassword,
@@ -40,8 +42,6 @@ export const signup = async (req, res) => {
 
 		// jwt
 		generateTokenAndSetCookie(res, user._id);
-
-		await sendVerificationEmail(user.email, verificationToken);
 
 		res.status(201).json({
 			success: true,

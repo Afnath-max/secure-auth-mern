@@ -40,6 +40,20 @@ const RedirectAuthenticatedUser = ({ children }) => {
 	return children;
 };
 
+const VerificationRoute = ({ children }) => {
+	const { isAuthenticated, user } = useAuthStore();
+
+	if (!isAuthenticated) {
+		return <Navigate to='/login' replace />;
+	}
+
+	if (user.isVerified) {
+		return <Navigate to='/' replace />;
+	}
+
+	return children;
+};
+
 function App() {
 	const { isCheckingAuth, checkAuth } = useAuthStore();
 
@@ -83,7 +97,14 @@ function App() {
 						</RedirectAuthenticatedUser>
 					}
 				/>
-				<Route path='/verify-email' element={<EmailVerificationPage />} />
+				<Route
+					path='/verify-email'
+					element={
+						<VerificationRoute>
+							<EmailVerificationPage />
+						</VerificationRoute>
+					}
+				/>
 				<Route
 					path='/forgot-password'
 					element={
