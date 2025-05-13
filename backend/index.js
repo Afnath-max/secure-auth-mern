@@ -5,8 +5,6 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { connectDB } from "./db/connectDB.js";
-
 import authRoutes from "./routes/auth.route.js";
 
 const backendDir = path.dirname(fileURLToPath(import.meta.url));
@@ -51,15 +49,6 @@ app.use(cookieParser()); // allows us to parse incoming cookies
 
 app.get("/api/health", (req, res) => {
 	res.status(200).json({ success: true, message: "API is running" });
-});
-
-app.use(async (req, res, next) => {
-	try {
-		await connectDB();
-		next();
-	} catch (error) {
-		res.status(500).json({ success: false, message: "Database connection failed" });
-	}
 });
 
 app.use("/api/auth", authRoutes);

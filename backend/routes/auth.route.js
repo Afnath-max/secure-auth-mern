@@ -9,18 +9,19 @@ import {
 	checkAuth,
 } from "../controllers/auth.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
+import { requireDB } from "../middleware/requireDB.js";
 
 const router = express.Router();
 
-router.get("/check-auth", verifyToken, checkAuth);
+router.get("/check-auth", verifyToken, requireDB, checkAuth);
 
-router.post("/signup", signup);
-router.post("/login", login);
+router.post("/signup", requireDB, signup);
+router.post("/login", requireDB, login);
 router.post("/logout", logout);
 
-router.post("/verify-email", verifyEmail);
-router.post("/forgot-password", forgotPassword);
+router.post("/verify-email", requireDB, verifyEmail);
+router.post("/forgot-password", requireDB, forgotPassword);
 
-router.post("/reset-password/:token", resetPassword);
+router.post("/reset-password/:token", requireDB, resetPassword);
 
 export default router;
