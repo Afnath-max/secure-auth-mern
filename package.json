@@ -4,7 +4,7 @@
 	"description": "A MERN authentication app with JWT cookies, email verification, password reset, and SMTP mail delivery.",
 	"main": "backend/index.js",
 	"engines": {
-		"node": ">=20.19.0"
+		"node": "22.x"
 	},
 	"scripts": {
 		"dev": "nodemon backend/index.js",
