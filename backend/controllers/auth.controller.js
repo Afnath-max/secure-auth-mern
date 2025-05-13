@@ -17,6 +17,18 @@ const getClientUrl = (req) => {
 	return `${protocol}://${req.get("host")}`;
 };
 
+const sanitizeUser = (user) => {
+	const userObject = user.toObject ? user.toObject() : { ...user };
+
+	delete userObject.password;
+	delete userObject.verificationToken;
+	delete userObject.verificationTokenExpiresAt;
+	delete userObject.resetPasswordToken;
+	delete userObject.resetPasswordExpiresAt;
+
+	return userObject;
+};
+
 export const signup = async (req, res) => {
 	const { email, password, name } = req.body;
 
@@ -26,7 +38,6 @@ export const signup = async (req, res) => {
 		}
 
 		const userAlreadyExists = await User.findOne({ email });
-		console.log("userAlreadyExists", userAlreadyExists);
 
 		if (userAlreadyExists) {
 			return res.status(400).json({ success: false, message: "User already exists" });
@@ -53,10 +64,7 @@ export const signup = async (req, res) => {
 		res.status(201).json({
 			success: true,
 			message: "User created successfully",
-			user: {
-				...user._doc,
-				password: undefined,
-			},
+			user: sanitizeUser(user),
 		});
 	} catch (error) {
 		res.status(400).json({ success: false, message: error.message });
@@ -85,10 +93,7 @@ export const verifyEmail = async (req, res) => {
 		res.status(200).json({
 			success: true,
 			message: "Email verified successfully",
-			user: {
-				...user._doc,
-				password: undefined,
-			},
+			user: sanitizeUser(user),
 		});
 	} catch (error) {
 		console.log("error in verifyEmail ", error);
@@ -116,10 +121,7 @@ export const login = async (req, res) => {
 		res.status(200).json({
 			success: true,
 			message: "Logged in successfully",
-			user: {
-				...user._doc,
-				password: undefined,
-			},
+			user: sanitizeUser(user),
 		});
 	} catch (error) {
 		console.log("Error in login ", error);
@@ -193,12 +195,12 @@ export const resetPassword = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
 	try {
-		const user = await User.findById(req.userId).select("-password");
+		const user = await User.findById(req.userId);
 		if (!user) {
 			return res.status(400).json({ success: false, message: "User not found" });
 		}
 
-		res.status(200).json({ success: true, user });
+		res.status(200).json({ success: true, user: sanitizeUser(user) });
 	} catch (error) {
 		console.log("Error in checkAuth ", error);
 		res.status(400).json({ success: false, message: error.message });
