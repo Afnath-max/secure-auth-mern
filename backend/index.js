@@ -24,6 +24,7 @@ const isAllowedOrigin = (origin) => {
 
 	try {
 		const { hostname } = new URL(origin);
+		if (["localhost", "127.0.0.1", "::1"].includes(hostname)) return true;
 		return hostname === "vercel.app" || hostname.endsWith(".vercel.app");
 	} catch {
 		return false;
@@ -45,8 +46,12 @@ app.use(
 	})
 );
 
-app.use(express.json()); // allows us to parse incoming requests:req.body
+app.use(express.json({ limit: "32kb" })); // allows us to parse incoming requests:req.body
 app.use(cookieParser()); // allows us to parse incoming cookies
+
+app.get("/api/health", (req, res) => {
+	res.status(200).json({ success: true, message: "API is running" });
+});
 
 app.use(async (req, res, next) => {
 	try {

@@ -1,28 +1,32 @@
+import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import FloatingShape from "./components/FloatingShape";
-
-import SignUpPage from "./pages/SignUpPage";
-import LoginPage from "./pages/LoginPage";
-import EmailVerificationPage from "./pages/EmailVerificationPage";
-import DashboardPage from "./pages/DashboardPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 import LoadingSpinner from "./components/LoadingSpinner";
 
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
-import { useEffect } from "react";
+
+const SignUpPage = lazy(() => import("./pages/SignUpPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const EmailVerificationPage = lazy(() => import("./pages/EmailVerificationPage"));
+const DashboardPage = lazy(() => import("./pages/DashboardPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 
 // protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
-	const { isAuthenticated, user } = useAuthStore();
+	const { isAuthenticated, isCheckingAuth, user } = useAuthStore();
+
+	if (isCheckingAuth) {
+		return <LoadingSpinner />;
+	}
 
 	if (!isAuthenticated) {
 		return <Navigate to='/login' replace />;
 	}
 
-	if (!user.isVerified) {
+	if (!user?.isVerified) {
 		return <Navigate to='/verify-email' replace />;
 	}
 
@@ -33,7 +37,7 @@ const ProtectedRoute = ({ children }) => {
 const RedirectAuthenticatedUser = ({ children }) => {
 	const { isAuthenticated, user } = useAuthStore();
 
-	if (isAuthenticated && user.isVerified) {
+	if (isAuthenticated && user?.isVerified) {
 		return <Navigate to='/' replace />;
 	}
 
@@ -41,13 +45,17 @@ const RedirectAuthenticatedUser = ({ children }) => {
 };
 
 const VerificationRoute = ({ children }) => {
-	const { isAuthenticated, user } = useAuthStore();
+	const { isAuthenticated, isCheckingAuth, user } = useAuthStore();
+
+	if (isCheckingAuth) {
+		return <LoadingSpinner />;
+	}
 
 	if (!isAuthenticated) {
 		return <Navigate to='/login' replace />;
 	}
 
-	if (user.isVerified) {
+	if (user?.isVerified) {
 		return <Navigate to='/' replace />;
 	}
 
@@ -55,13 +63,11 @@ const VerificationRoute = ({ children }) => {
 };
 
 function App() {
-	const { isCheckingAuth, checkAuth } = useAuthStore();
+	const { checkAuth } = useAuthStore();
 
 	useEffect(() => {
 		checkAuth();
 	}, [checkAuth]);
-
-	if (isCheckingAuth) return <LoadingSpinner />;
 
 	return (
 		<div
@@ -73,59 +79,61 @@ function App() {
 			<FloatingShape color='bg-sky-500' size='w-32 h-32' top='40%' left='-10%' delay={2} />
 
 			<div className='relative z-10 flex w-full items-center justify-center px-4'>
-				<Routes>
-					<Route
-						path='/'
-						element={
-							<ProtectedRoute>
-								<DashboardPage />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path='/signup'
-						element={
-							<RedirectAuthenticatedUser>
-								<SignUpPage />
-							</RedirectAuthenticatedUser>
-						}
-					/>
-					<Route
-						path='/login'
-						element={
-							<RedirectAuthenticatedUser>
-								<LoginPage />
-							</RedirectAuthenticatedUser>
-						}
-					/>
-					<Route
-						path='/verify-email'
-						element={
-							<VerificationRoute>
-								<EmailVerificationPage />
-							</VerificationRoute>
-						}
-					/>
-					<Route
-						path='/forgot-password'
-						element={
-							<RedirectAuthenticatedUser>
-								<ForgotPasswordPage />
-							</RedirectAuthenticatedUser>
-						}
-					/>
+				<Suspense fallback={<LoadingSpinner />}>
+					<Routes>
+						<Route
+							path='/'
+							element={
+								<ProtectedRoute>
+									<DashboardPage />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path='/signup'
+							element={
+								<RedirectAuthenticatedUser>
+									<SignUpPage />
+								</RedirectAuthenticatedUser>
+							}
+						/>
+						<Route
+							path='/login'
+							element={
+								<RedirectAuthenticatedUser>
+									<LoginPage />
+								</RedirectAuthenticatedUser>
+							}
+						/>
+						<Route
+							path='/verify-email'
+							element={
+								<VerificationRoute>
+									<EmailVerificationPage />
+								</VerificationRoute>
+							}
+						/>
+						<Route
+							path='/forgot-password'
+							element={
+								<RedirectAuthenticatedUser>
+									<ForgotPasswordPage />
+								</RedirectAuthenticatedUser>
+							}
+						/>
 
-					<Route
-						path='/reset-password/:token'
-						element={
-							<RedirectAuthenticatedUser>
-								<ResetPasswordPage />
-							</RedirectAuthenticatedUser>
-						}
-					/>
-					{/* catch all routes */}
-					<Route path='*' element={<Navigate to='/' replace />} />
-				</Routes>
+						<Route
+							path='/reset-password/:token'
+							element={
+								<RedirectAuthenticatedUser>
+									<ResetPasswordPage />
+								</RedirectAuthenticatedUser>
+							}
+						/>
+						{/* catch all routes */}
+						<Route path='*' element={<Navigate to='/' replace />} />
+					</Routes>
+				</Suspense>
 			</div>
 			<Toaster />
 		</div>

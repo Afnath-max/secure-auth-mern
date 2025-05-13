@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-Process powershell -WindowStyle Hidden -ArgumentList '-NoProfile','-Command','$url=\\\"http://localhost:5173/login\\\"; Start-Sleep -Seconds 2; if (Get-Command chrome.exe -ErrorAction SilentlyContinue) { Start-Process chrome.exe $url } elseif (Get-Command msedge.exe -ErrorAction SilentlyContinue) { Start-Process msedge.exe $url } else { Start-Process $url }'; vite\"",
     "build": "vite build",
@@ -10,20 +13,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.7.3",
+    "axios": "^1.16.0",
     "framer-motion": "^11.3.21",
     "lucide-react": "^0.424.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^6.26.0",
+    "react-router-dom": "^6.30.3",
     "secure-auth-mern": "file:..",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.3",
@@ -31,6 +34,6 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "postcss": "^8.4.40",
     "tailwindcss": "^3.4.7",
-    "vite": "^5.3.4"
+    "vite": "^8.0.12"
   }
 }
