@@ -48,7 +48,7 @@ export const sendWelcomeEmail = async (email, name) => {
 			subject: "Welcome to Auth App",
 			html: `
 				<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-					<h1>Welcome, ${name}!</h1>
+					<h1 style="color: #2563EB;">Welcome, ${name}!</h1>
 					<p>Your email has been verified successfully.</p>
 					<p>You can now use your account.</p>
 				</div>
