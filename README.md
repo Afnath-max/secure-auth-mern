@@ -219,6 +219,6 @@ The production deployment has been tested for frontend loading, backend health c
 
 <div align="center">
 
-Built for secure, portfolio-ready MERN authentication workflows.
+Built as a ready-made MERN authentication project for secure account workflows.
 
 </div>
