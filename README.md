@@ -21,27 +21,33 @@ Full-stack authentication platform with email verification, password recovery, J
 
 ---
 
-## Overview
+<h2 align="center">Overview</h2>
 
-Secure Auth MERN is a complete authentication application built with React, Express, MongoDB, and Node.js. It covers the core account flows used in real products: signup, login, email verification, protected routes, forgot password, reset password, logout, and session checking with HTTP-only JWT cookies.
+<p align="center">
+Secure Auth MERN is a complete authentication application built with React, Express, MongoDB, and Node.js. It covers the account flows used in real products: signup, login, email verification, protected routes, forgot password, reset password, logout, and session checking with HTTP-only JWT cookies.
+</p>
 
+<p align="center">
 The app is deployed as a full-stack Vercel project. The React frontend, Express API, MongoDB Atlas database, and SMTP mail delivery are configured to work together from a single production domain.
+</p>
 
-## Key Features
+<h2 align="center">Key Features</h2>
 
-- Secure account signup and login
-- Email verification with a 6-digit code
-- Forgot password and reset password flow
-- JWT sessions stored in HTTP-only cookies
-- Protected React routes for verified users
-- MongoDB Atlas persistence through Mongoose
-- SMTP transactional email through Nodemailer
-- Password visibility toggles on password fields
-- Fast public page loading with route-level code splitting
-- Blue responsive UI with Tailwind CSS and Framer Motion
-- Vercel-ready frontend and backend deployment
+<div align="center">
 
-## Tech Stack
+| Authentication | Security | Platform |
+| --- | --- | --- |
+| Signup and login | HTTP-only JWT cookies | Vercel full-stack deployment |
+| Email verification code | bcrypt password hashing | MongoDB Atlas persistence |
+| Forgot password flow | Safe user API responses | SMTP email delivery |
+| Reset password flow | Protected verified routes | Fast public page loading |
+| Session check route | Private environment config | Blue responsive UI |
+
+</div>
+
+<h2 align="center">Tech Stack</h2>
+
+<div align="center">
 
 | Area | Tools |
 | --- | --- |
@@ -53,7 +59,9 @@ The app is deployed as a full-stack Vercel project. The React frontend, Express 
 | Email | Nodemailer, SMTP |
 | Deployment | Vercel |
 
-## Architecture
+</div>
+
+<h2 align="center">Architecture</h2>
 
 ```text
 secure-auth-mern/
@@ -73,7 +81,9 @@ secure-auth-mern/
 `-- README.md
 ```
 
-## Core Flows
+<h2 align="center">Core Flows</h2>
+
+<div align="center">
 
 | Flow | Description |
 | --- | --- |
@@ -85,7 +95,11 @@ secure-auth-mern/
 | Reset Password | Validates the reset token and stores a new hashed password. |
 | Logout | Clears the authentication cookie. |
 
-## API Reference
+</div>
+
+<h2 align="center">API Reference</h2>
+
+<div align="center">
 
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
@@ -98,9 +112,13 @@ secure-auth-mern/
 | `POST` | `/api/auth/forgot-password` | Send password reset email |
 | `POST` | `/api/auth/reset-password/:token` | Reset password with token |
 
-## Environment Variables
+</div>
 
-Create a `.env` file in the project root:
+<h2 align="center">Environment Variables</h2>
+
+<p align="center">
+Create a <code>.env</code> file in the project root. Keep this file private and never commit real credentials.
+</p>
 
 ```env
 MONGO_URI=your_mongodb_connection_string
@@ -119,52 +137,37 @@ MAIL_SMTP_STARTTLS=true
 AUTH_MAIL_FROM_ADDRESS=your_email@gmail.com
 ```
 
-For Gmail SMTP, use a Google App Password for `MAIL_PASSWORD`. Do not use your normal Gmail password.
+<p align="center">
+For Gmail SMTP, use a Google App Password for <code>MAIL_PASSWORD</code>. Do not use your normal Gmail password.
+</p>
 
-## Local Setup
+<h2 align="center">Local Setup</h2>
 
-Install root dependencies:
+<div align="center">
 
-```powershell
-npm install
-```
+| Step | Command |
+| --- | --- |
+| Install root dependencies | `npm install` |
+| Install frontend dependencies | `npm install --prefix frontend` |
+| Start backend | `npm run dev` |
+| Start frontend | `cd frontend` then `npm run dev` |
+| Open app | `http://localhost:5173/login` |
 
-Install frontend dependencies:
+</div>
 
-```powershell
-npm install --prefix frontend
-```
-
-Start the backend:
-
-```powershell
-npm run dev
-```
-
-Start the frontend in another terminal:
-
-```powershell
-cd frontend
-npm run dev
-```
-
-Open:
-
-```text
-http://localhost:5173/login
-```
-
-## Production Build
+<h2 align="center">Production Build</h2>
 
 ```powershell
 npm run build
 ```
 
-The build command installs dependencies and generates the Vite production output in `frontend/dist`.
+<p align="center">
+The build command installs dependencies and generates the Vite production output in <code>frontend/dist</code>.
+</p>
 
-## Vercel Deployment
+<h2 align="center">Vercel Deployment</h2>
 
-This repository is configured for Vercel with `vercel.json`.
+<div align="center">
 
 | Setting | Value |
 | --- | --- |
@@ -173,9 +176,15 @@ This repository is configured for Vercel with `vercel.json`.
 | Runtime | Node.js 22.x |
 | Production URL | `https://secure-auth-mern.vercel.app` |
 
-Add the environment variables from `.env` to the Vercel project before deploying.
+</div>
 
-## Scripts
+<p align="center">
+Add the environment variables from <code>.env</code> to the Vercel project before deploying.
+</p>
+
+<h2 align="center">Scripts</h2>
+
+<div align="center">
 
 | Command | Description |
 | --- | --- |
@@ -185,25 +194,37 @@ Add the environment variables from `.env` to the Vercel project before deploying
 | `npm run dev --prefix frontend` | Start the Vite frontend |
 | `npm run lint --prefix frontend` | Run frontend ESLint |
 
-## Security
+</div>
 
-- `.env` is ignored by Git and must stay private.
-- API responses remove passwords, verification tokens, and reset tokens.
-- Passwords are hashed with bcrypt before storage.
-- JWT sessions are stored in HTTP-only cookies.
-- Production credentials should be rotated if they are ever exposed.
-- MongoDB Atlas Network Access must allow the deployment environment.
+<h2 align="center">Security</h2>
 
-## Verification
+<div align="center">
 
-The production deployment has been tested for:
+| Practice | Implementation |
+| --- | --- |
+| Private configuration | `.env` is ignored by Git |
+| Password storage | Passwords are hashed with bcrypt |
+| Session storage | JWT sessions use HTTP-only cookies |
+| Safe API responses | Passwords, verification tokens, and reset tokens are removed |
+| Production access | MongoDB Atlas Network Access must allow the deployment environment |
+| Credential hygiene | Rotate production secrets if they are ever exposed |
 
-- Frontend page load
-- Backend health endpoint
-- MongoDB-backed signup
-- SMTP verification email delivery
-- Auth session checks
-- Vercel production routing
+</div>
+
+<h2 align="center">Verification</h2>
+
+<div align="center">
+
+| Check | Status |
+| --- | --- |
+| Frontend page load | Verified |
+| Backend health endpoint | Verified |
+| MongoDB-backed signup | Verified |
+| SMTP verification email delivery | Verified |
+| Auth session check | Verified |
+| Vercel production routing | Verified |
+
+</div>
 
 ---
 
