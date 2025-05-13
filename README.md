@@ -8,7 +8,9 @@ Full-stack authentication platform with email verification, password recovery, J
 
 **Production-ready MERN authentication system for secure account workflows.**
 
-[Live Frontend](https://secure-auth-mern.vercel.app) | [Backend API](https://secure-auth-mern.vercel.app/api/health) | [Health Check](https://secure-auth-mern.vercel.app/api/health)
+[![Live Frontend](https://img.shields.io/badge/Live%20Frontend-RetechExchange-14b8a6?style=for-the-badge&logo=vercel&labelColor=4b5563&logoColor=white)](https://secure-auth-mern.vercel.app)
+[![Backend API](https://img.shields.io/badge/Backend%20API-Online-111827?style=for-the-badge&logo=node.js&labelColor=4b5563&logoColor=white)](https://secure-auth-mern.vercel.app/api/health)
+[![Health Check](https://img.shields.io/badge/Health%20Check-Passing-16a34a?style=for-the-badge&labelColor=4b5563)](https://secure-auth-mern.vercel.app/api/health)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=111827)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)

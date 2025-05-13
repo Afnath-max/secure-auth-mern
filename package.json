@@ -1,38 +1,38 @@
 {
-	"name": "secure-auth-mern",
-	"version": "1.0.0",
-	"description": "A MERN authentication app with JWT cookies, email verification, password reset, and SMTP mail delivery.",
-	"main": "backend/index.js",
-	"engines": {
-		"node": "22.x"
-	},
-	"scripts": {
-		"dev": "nodemon backend/index.js",
-		"start": "node backend/index.js",
-		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
-	},
-	"keywords": [
-		"mern",
-		"authentication",
-		"jwt",
-		"mongodb",
-		"react",
-		"smtp"
-	],
-	"author": "Afnath Ahamed",
-	"type": "module",
-	"license": "ISC",
-	"dependencies": {
-		"bcryptjs": "^2.4.3",
-		"cookie-parser": "^1.4.7",
-		"cors": "^2.8.5",
-		"dotenv": "^16.4.5",
-		"express": "^4.22.2",
-		"jsonwebtoken": "^9.0.3",
-		"mongoose": "^8.23.1",
-		"nodemailer": "^8.0.7"
-	},
-	"devDependencies": {
-		"nodemon": "^3.1.4"
-	}
+  "name": "secure-auth-mern",
+  "version": "1.0.0",
+  "description": "A MERN authentication app with JWT cookies, email verification, password reset, and SMTP mail delivery.",
+  "main": "backend/index.js",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "node init && nodemon backend/index.js",
+    "start": "node init && node backend/index.js",
+    "build": "node init && npm install && npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [
+    "mern",
+    "authentication",
+    "jwt",
+    "mongodb",
+    "react",
+    "smtp"
+  ],
+  "author": "Afnath Ahamed",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.23.1",
+    "nodemailer": "^8.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }
