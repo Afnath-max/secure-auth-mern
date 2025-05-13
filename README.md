@@ -194,13 +194,13 @@ Add the environment variables from `.env` to the Vercel project before deploying
 
 ## Scripts
 
-```text
-npm run dev                   Start the Express backend with Nodemon
-npm start                     Start the Express backend with Node
-npm run build                 Install dependencies and build the frontend
-npm run dev --prefix frontend Start the Vite frontend
-npm run lint --prefix frontend Run frontend ESLint
-```
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the Express backend with Nodemon |
+| `npm start` | Start the Express backend with Node |
+| `npm run build` | Install dependencies and build the frontend |
+| `npm run dev --prefix frontend` | Start the Vite frontend |
+| `npm run lint --prefix frontend` | Run frontend ESLint |
 
 ## Security
 
