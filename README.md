@@ -1,54 +1,102 @@
+<div align="center">
+
 # Secure Auth MERN
 
-A production-ready MERN authentication application with secure account creation, email verification, password recovery, JWT cookie sessions, MongoDB Atlas persistence, and SMTP email delivery.
+Full-stack authentication platform with email verification, password recovery, JWT cookie sessions, MongoDB Atlas, and SMTP email delivery.
 
-[Live Demo](https://secure-auth-mern.vercel.app) | [Repository](https://github.com/Afnath-max/secure-auth-mern)
+<img src="frontend/public/screenshot-for-readme.png" alt="Secure Auth MERN application preview" width="100%" />
 
-![Secure Auth MERN application preview](frontend/public/screenshot-for-readme.png)
+**Production-ready MERN authentication system for secure account workflows.**
+
+[Live Frontend](https://secure-auth-mern.vercel.app) | [Backend API](https://secure-auth-mern.vercel.app/api/health) | [Health Check](https://secure-auth-mern.vercel.app/api/health)
+
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=111827)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Express](https://img.shields.io/badge/Express-API-111827?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Cookies-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+</div>
+
+---
 
 ## Overview
 
-Secure Auth MERN is a full-stack authentication system built with React, Express, MongoDB, and Node.js. It includes the core flows expected in a modern auth product: signup, login, email verification, protected routes, forgot password, reset password, logout, and persistent session checks through HTTP-only JWT cookies.
+Secure Auth MERN is a complete authentication application built with React, Express, MongoDB, and Node.js. It covers the core account flows used in real products: signup, login, email verification, protected routes, forgot password, reset password, logout, and session checking with HTTP-only JWT cookies.
 
-The project is configured for local development and Vercel production deployment, with the frontend and backend served from the same deployed domain for simpler routing and cleaner API requests.
+The app is deployed as a full-stack Vercel project. The React frontend, Express API, MongoDB Atlas database, and SMTP mail delivery are configured to work together from a single production domain.
 
-## Features
+## Key Features
 
-- Account signup and login
+- Secure account signup and login
 - Email verification with a 6-digit code
-- Forgot password and reset password workflow
-- JWT authentication stored in HTTP-only cookies
-- Protected frontend routes
-- MongoDB Atlas user persistence with Mongoose
-- SMTP email delivery through Nodemailer
+- Forgot password and reset password flow
+- JWT sessions stored in HTTP-only cookies
+- Protected React routes for verified users
+- MongoDB Atlas persistence through Mongoose
+- SMTP transactional email through Nodemailer
 - Password visibility toggles on password fields
-- Blue responsive UI built with Tailwind CSS and Framer Motion
-- Vercel-ready full-stack deployment
-- Fast public page loading with route-level frontend code splitting
+- Fast public page loading with route-level code splitting
+- Blue responsive UI with Tailwind CSS and Framer Motion
+- Vercel-ready frontend and backend deployment
 
 ## Tech Stack
 
-| Layer | Technology |
+| Area | Tools |
 | --- | --- |
 | Frontend | React 18, Vite, React Router, Zustand |
-| Styling | Tailwind CSS, Framer Motion, Lucide React |
+| UI | Tailwind CSS, Framer Motion, Lucide React |
 | Backend | Node.js, Express |
 | Database | MongoDB Atlas, Mongoose |
-| Auth | JWT, HTTP-only cookies, bcrypt |
-| Email | Nodemailer with SMTP |
+| Authentication | JWT, HTTP-only cookies, bcrypt |
+| Email | Nodemailer, SMTP |
 | Deployment | Vercel |
 
-## Project Structure
+## Architecture
 
 ```text
 secure-auth-mern/
-|-- api/                    # Vercel serverless API entry
-|-- backend/                # Express API, auth routes, DB, mail, models
-|-- frontend/               # React + Vite client
-|-- vercel.json             # Vercel full-stack deployment config
-|-- package.json            # Backend/root scripts and dependencies
+|-- api/                    # Vercel serverless entry point
+|-- backend/
+|   |-- controllers/         # Auth business logic
+|   |-- db/                  # MongoDB connection
+|   |-- mail/                # SMTP config and email templates
+|   |-- middleware/          # Token and database middleware
+|   |-- models/              # Mongoose schemas
+|   `-- routes/              # Express auth routes
+|-- frontend/
+|   |-- public/              # README preview image
+|   `-- src/                 # React pages, components, store
+|-- vercel.json              # Full-stack Vercel routing config
+|-- package.json             # Backend/root scripts
 `-- README.md
 ```
+
+## Core Flows
+
+| Flow | Description |
+| --- | --- |
+| Signup | Creates a user, hashes the password, stores the account, sends a verification code, and starts a cookie session. |
+| Verify Email | Confirms the 6-digit code and unlocks protected access. |
+| Login | Validates credentials and issues a JWT cookie. |
+| Check Auth | Validates the current session and returns the safe user profile. |
+| Forgot Password | Creates a reset token and sends a reset link by email. |
+| Reset Password | Validates the reset token and stores a new hashed password. |
+| Logout | Clears the authentication cookie. |
+
+## API Reference
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/health` | API health check |
+| `POST` | `/api/auth/signup` | Create account and send verification code |
+| `POST` | `/api/auth/verify-email` | Verify email code |
+| `POST` | `/api/auth/login` | Login with email and password |
+| `POST` | `/api/auth/logout` | Clear the auth cookie |
+| `GET` | `/api/auth/check-auth` | Check the current JWT session |
+| `POST` | `/api/auth/forgot-password` | Send password reset email |
+| `POST` | `/api/auth/reset-password/:token` | Reset password with token |
 
 ## Environment Variables
 
@@ -71,11 +119,11 @@ MAIL_SMTP_STARTTLS=true
 AUTH_MAIL_FROM_ADDRESS=your_email@gmail.com
 ```
 
-For Gmail SMTP, create a Google App Password and use that value for `MAIL_PASSWORD`. Do not use your normal Gmail account password.
+For Gmail SMTP, use a Google App Password for `MAIL_PASSWORD`. Do not use your normal Gmail password.
 
-## Installation
+## Local Setup
 
-Install backend/root dependencies:
+Install root dependencies:
 
 ```powershell
 npm install
@@ -87,9 +135,7 @@ Install frontend dependencies:
 npm install --prefix frontend
 ```
 
-## Local Development
-
-Start the backend from the project root:
+Start the backend:
 
 ```powershell
 npm run dev
@@ -102,7 +148,7 @@ cd frontend
 npm run dev
 ```
 
-Open the app:
+Open:
 
 ```text
 http://localhost:5173/login
@@ -114,57 +160,55 @@ http://localhost:5173/login
 npm run build
 ```
 
-The production build installs dependencies and generates the Vite frontend output in `frontend/dist`.
+The build command installs dependencies and generates the Vite production output in `frontend/dist`.
 
-## API Endpoints
+## Vercel Deployment
 
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `/api/health` | API health check |
-| `POST` | `/api/auth/signup` | Create a new user and send verification email |
-| `POST` | `/api/auth/verify-email` | Verify a user's email code |
-| `POST` | `/api/auth/login` | Authenticate a user |
-| `POST` | `/api/auth/logout` | Clear the auth cookie |
-| `GET` | `/api/auth/check-auth` | Validate the current session |
-| `POST` | `/api/auth/forgot-password` | Send a password reset link |
-| `POST` | `/api/auth/reset-password/:token` | Reset a user's password |
+This repository is configured for Vercel with `vercel.json`.
 
-## Deployment
+| Setting | Value |
+| --- | --- |
+| Frontend output | `frontend/dist` |
+| API entry | `api/index.js` |
+| Runtime | Node.js 22.x |
+| Production URL | `https://secure-auth-mern.vercel.app` |
 
-This project is configured for Vercel using `vercel.json`.
-
-- Frontend output directory: `frontend/dist`
-- API entry: `api/index.js`
-- Production URL: `https://secure-auth-mern.vercel.app`
-- Runtime: Node.js 22.x
-
-Required production environment variables should be added in the Vercel project settings before deployment.
-
-## Security Notes
-
-- Keep `.env` private. It is ignored by Git.
-- Use a long, random `JWT_SECRET` in production.
-- Use Google App Passwords or equivalent SMTP app credentials.
-- Do not expose verification tokens, reset tokens, or hashed passwords in API responses.
-- Keep MongoDB Atlas Network Access configured for the deployment environment.
-- Rotate credentials immediately if they are ever committed or shared publicly.
+Add the environment variables from `.env` to the Vercel project before deploying.
 
 ## Scripts
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Start the backend with Nodemon |
-| `npm start` | Start the backend with Node |
+| `npm run dev` | Start the Express backend with Nodemon |
+| `npm start` | Start the Express backend with Node |
 | `npm run build` | Install dependencies and build the frontend |
-| `npm run dev --prefix frontend` | Start the Vite frontend dev server |
+| `npm run dev --prefix frontend` | Start the Vite frontend |
 | `npm run lint --prefix frontend` | Run frontend ESLint |
 
-## Status
+## Security
 
-The latest production deployment has been verified with:
+- `.env` is ignored by Git and must stay private.
+- API responses remove passwords, verification tokens, and reset tokens.
+- Passwords are hashed with bcrypt before storage.
+- JWT sessions are stored in HTTP-only cookies.
+- Production credentials should be rotated if they are ever exposed.
+- MongoDB Atlas Network Access must allow the deployment environment.
+
+## Verification
+
+The production deployment has been tested for:
 
 - Frontend page load
 - Backend health endpoint
-- MongoDB-backed signup flow
+- MongoDB-backed signup
 - SMTP verification email delivery
-- Protected auth session check
+- Auth session checks
+- Vercel production routing
+
+---
+
+<div align="center">
+
+Built for secure, portfolio-ready MERN authentication workflows.
+
+</div>
