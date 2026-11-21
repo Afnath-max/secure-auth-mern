@@ -7,9 +7,9 @@
     "node": "22.x"
   },
   "scripts": {
-    "dev": "node init && nodemon backend/index.js",
-    "start": "node init && node backend/index.js",
-    "build": "node init && npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "dev": "nodemon backend/index.js",
+    "start": "node backend/index.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [
     "mern",

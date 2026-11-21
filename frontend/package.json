@@ -7,8 +7,8 @@
     "node": "22.x"
   },
   "scripts": {
-    "dev": "node init && powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-Process powershell -WindowStyle Hidden -ArgumentList '-NoProfile','-Command','$url=\\\"http://localhost:5173/login\\\"; Start-Sleep -Seconds 2; if (Get-Command chrome.exe -ErrorAction SilentlyContinue) { Start-Process chrome.exe $url } elseif (Get-Command msedge.exe -ErrorAction SilentlyContinue) { Start-Process msedge.exe $url } else { Start-Process $url }'; vite\"",
-    "build": "node init && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
